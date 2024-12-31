@@ -1,55 +1,51 @@
-# Maintainer: David Runge <dvzrv@archlinux.org>
-# Maintainer: Sébastien Luttringer
-# Contributor: Tom Gundersen <teg@jklm.no>
+# Maintainer: Stefan Zipproth <s.zipproth@ditana.org>
+# Based on the original 'filesystem' package from Arch Linux
+# Tracking original 'filesystem' version: pkgver matches, pkgrel may differ
+#
+# This package provides Ditana-specific modifications to the base filesystem,
+# allowing for seamless integration of Ditana-specific features and configurations
+# while maintaining compatibility with Arch Linux updates.
 
-pkgname=filesystem
+pkgname=ditana-filesystem
 pkgver=2024.04.07
-pkgrel=1
-pkgdesc='Base Arch Linux files'
+pkgrel=22
+pkgdesc='Base Ditana GNU/Linux files'
 arch=('any')
 license=('GPL-3.0-or-later')
 url='https://archlinux.org'
 depends=('iana-etc')
+provides=("filesystem=${pkgver}")
+conflicts=('filesystem')
 backup=(
   'etc/crypttab'
-  'etc/fstab'
   'etc/group'
   'etc/gshadow'
   'etc/host.conf'
-  'etc/hosts'
   'etc/issue'
   'etc/ld.so.conf'
   'etc/nsswitch.conf'
   'etc/passwd'
   'etc/profile'
-  'etc/resolv.conf'
   'etc/securetty'
   'etc/shadow'
   'etc/shells'
   'etc/subgid'
   'etc/subuid'
 )
+
 source=(
   'arch-release'
-  'archlinux-logo.png'
-  'archlinux-logo.svg'
-  'archlinux-logo-text.svg'
-  'archlinux-logo-text-dark.svg'
   'crypttab'
   'env-generator'
-  'fstab'
   'group'
   'gshadow'
   'host.conf'
-  'hosts'
   'issue'
   'ld.so.conf'
   'locale.sh'
   'nsswitch.conf'
-  'os-release'
   'passwd'
   'profile'
-  'resolv.conf'
   'securetty'
   'shadow'
   'shells'
@@ -59,26 +55,19 @@ source=(
   'subgid'
   'subuid'
 )
+
 sha256sums=('01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b'
-            '3f48779141b68a81e07fee710a42025d4f67b16240295aa4cf148a7ba99cab3c'
-            '3ffe8ea4e98db43a3ec4dcca55fd4009cd8b8d220f0996aef7a5b427fdf65234'
-            '601069e6e8920309178c397fd8cebe43410827d01899d31777d13212f0dfacf8'
-            '96e3cc81623c0537a19799f9eefa966fe46ff5f28a9dc7af1187990973baa127'
             'e03bede3d258d680548696623d5979c6edf03272e801a813c81ba5a5c64f4f82'
             'ed0cb4f1db4021f8c3b5ce78fdf91d2c0624708f58f36c9cf867f4d93c3bc6da'
-            'e54626e74ed8fee4173b62a545ab1c3a3a069e4217a0ee8fc398d9933e9c1696'
             '244f0718ee2a9d6862ae59d6c18c1dd1568651eada91a704574fa527fbac2b3a'
             '90d879374f77bac47f132164c1e7fc4892e994ff1d1ac376efa0c1c26ea37273'
             '4d7b647169063dfedbff5e1e22cee77bd1a4183dbcfd5e802e68939da4bbf733'
-            'd9cd8a77d9e0aa5e90d7f4ed74c8745c17b525e720e28e4c44364150003c35f9'
-            'c774dbbcaea38ee1c1141d0daf82aa8177bfb26aca896d6f0c4ccdc902f6ac42'
+            'd30a1be9d0fa0b71c59bbb19fb9319781afebc11b4e232a98bfb080be5d51703'
             '785c6c3614a27ae6115a27c1ca55bbf333654780997c4ba7e181172b021d1bf3'
-            '8ca2d8eef6fb5143c9ef7e9174ccfef59ac7ad2deee243574cd10c763156cc10'
+            '153d848ed51f2774e5a1578ea08e0c8586ecc63f7562697e035b84247edb2f82'
             'c8ee7a9faf798caab178ec51afae4146f1efd8a716b7acedf28345b6c75f9697'
-            '71ff7a6e248d9a0718344c957ec709cb6f0b18631682fa404d7cff2af3ff341d'
             '13e2783884783ef46b8345fbcdf7880f0414c0a9c42e2b2fc6a2b048cbc2d86e'
-            '8f08231922fe185d3132f9aedded5cd688fb7c482a6f6f272402ded82fa4849a'
-            '5557d8e601b17a80d1ea7de78a9869be69637cb6a02fbfe334e22fdf64e61d4c'
+            '760aebb207395aee3ef87134ab1d5ec95a17b39b351662064b0c3a950f995752'
             'd88be2b45b43605ff31dd83d6a138069b6c2e92bc8989b7b9ab9eba8da5f8c7b'
             '6e13705ac4d6f69cdba118c6b70c722346fd3c45224133e6bbfe28aca719563c'
             'ec289c03aa0d150e90e8287f001c8e6552ab9dd54f450bdb5c2d2254e477965b'
@@ -87,6 +76,18 @@ sha256sums=('01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b'
             '01d1aeb2cb35965074943bb99a4bb646959e0270a81dcd6af9a7b1c092fb3524'
             'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
             'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')
+
+source+=(
+    '99-wheel-group'
+    'ditana-logo.png'
+    'ditana-logo.svg'
+)
+
+sha256sums+=(
+    '65ae53cdc6fd4d323e8bab7796c0f743744d181897a349bccdc2e4259cf60cfc'
+    '214083cf874a95e9a9d994f50d3ea47b696d794c61a6a4f705e52561c8433dca'
+    '98e9e87be089a2190c8550442a64b686d76bb1f5fc8b085c6a90c6a7033b1e5f'
+)
 
 package() {
   local group link mode source_file user
@@ -151,6 +152,15 @@ package() {
     ["var/tmp"]="1777:0:0"
   )
 
+  directories+=(
+    ["etc/sudoers.d"]="750:0:0"
+    ["etc/security/limits.d"]="755:0:0"
+    ["etc/systemd/system.conf.d"]="755:0:0"
+    ["etc/ssh/sshd_config.d"]="755:0:0"
+    ["etc/NetworkManager"]="755:0:0"
+    ["etc/NetworkManager/conf.d"]="755:0:0"
+  )
+
   # associative array with symlink names and their respective targets
   # all paths are relative to the root directory /
   symlinks=(
@@ -173,51 +183,46 @@ package() {
   files=(
     ["etc/arch-release"]="arch-release:644:0:0"
     ["etc/crypttab"]="crypttab:600:0:0"
-    ["etc/fstab"]="fstab:644:0:0"
     ["etc/group"]="group:644:0:0"
     ["etc/gshadow"]="gshadow:600:0:0"
     ["etc/host.conf"]="host.conf:644:0:0"
-    ["etc/hosts"]="hosts:644:0:0"
     ["etc/issue"]="issue:644:0:0"
     ["etc/ld.so.conf"]="ld.so.conf:644:0:0"
     ["etc/nsswitch.conf"]="nsswitch.conf:644:0:0"
     ["etc/passwd"]="passwd:644:0:0"
     ["etc/profile"]="profile:644:0:0"
     ["etc/profile.d/locale.sh"]="locale.sh:644:0:0"
-    ["etc/resolv.conf"]="resolv.conf:644:0:0"
     ["etc/securetty"]="securetty:644:0:0"
     ["etc/shells"]="shells:644:0:0"
     ["etc/shadow"]="shadow:600:0:0"
     ["etc/subgid"]="subgid:644:0:0"
     ["etc/subuid"]="subuid:644:0:0"
-    ["usr/lib/os-release"]="os-release:644:0:0"
     ["usr/lib/sysctl.d/10-arch.conf"]="sysctl:644:0:0"
     ["usr/lib/sysusers.d/arch.conf"]="sysusers:644:0:0"
     ["usr/lib/tmpfiles.d/arch.conf"]="tmpfiles:644:0:0"
     ["usr/lib/systemd/system-environment-generators/10-arch"]="env-generator:755:0:0"
     ["usr/share/factory/etc/arch-release"]="arch-release:644:0:0"
     ["usr/share/factory/etc/crypttab"]="crypttab:600:0:0"
-    ["usr/share/factory/etc/fstab"]="fstab:644:0:0"
     ["usr/share/factory/etc/group"]="group:644:0:0"
     ["usr/share/factory/etc/gshadow"]="gshadow:600:0:0"
     ["usr/share/factory/etc/host.conf"]="host.conf:644:0:0"
-    ["usr/share/factory/etc/hosts"]="hosts:644:0:0"
     ["usr/share/factory/etc/issue"]="issue:644:0:0"
     ["usr/share/factory/etc/ld.so.conf"]="ld.so.conf:644:0:0"
     ["usr/share/factory/etc/nsswitch.conf"]="nsswitch.conf:644:0:0"
     ["usr/share/factory/etc/passwd"]="passwd:644:0:0"
     ["usr/share/factory/etc/profile"]="profile:644:0:0"
     ["usr/share/factory/etc/profile.d/locale.sh"]="locale.sh:644:0:0"
-    ["usr/share/factory/etc/resolv.conf"]="resolv.conf:644:0:0"
     ["usr/share/factory/etc/securetty"]="securetty:644:0:0"
     ["usr/share/factory/etc/shadow"]="shadow:600:0:0"
     ["usr/share/factory/etc/shells"]="shells:644:0:0"
     ["usr/share/factory/etc/subgid"]="subgid:644:0:0"
     ["usr/share/factory/etc/subuid"]="subuid:644:0:0"
-    ["usr/share/pixmaps/archlinux-logo.png"]="archlinux-logo.png:644:0:0"
-    ["usr/share/pixmaps/archlinux-logo.svg"]="archlinux-logo.svg:644:0:0"
-    ["usr/share/pixmaps/archlinux-logo-text.svg"]="archlinux-logo-text.svg:644:0:0"
-    ["usr/share/pixmaps/archlinux-logo-text-dark.svg"]="archlinux-logo-text-dark.svg:644:0:0"
+  )
+
+  files+=(
+    ["etc/sudoers.d/99-wheel-group"]="99-wheel-group:440:0:0"
+    ["usr/share/pixmaps/ditana-logo.png"]="ditana-logo.png:644:0:0"
+    ["usr/share/pixmaps/ditana-logo.svg"]="ditana-logo.svg:644:0:0"
   )
 
   cd "$pkgdir"
